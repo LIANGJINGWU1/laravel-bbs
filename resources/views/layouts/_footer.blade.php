@@ -1,3 +1,4 @@
+{{-- _footer.blade  から--}}
 <footer class="footer">
     <div class="container">
         <p class="float-start">
@@ -7,3 +8,4 @@
         <p class="float-end"><a href="#">お問い合わせ</a></p>
     </div>
 </footer>
+{{--_footer.blade まで--}}
