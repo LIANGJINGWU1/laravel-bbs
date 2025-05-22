@@ -61,6 +61,21 @@
                             </div>
                         </div>
 
+                        <div class="mb-3 row">
+                            <label for="captcha" class="col-md-4 col-form-label text-md-end">{{ __('Captcha') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="captcha" class="form-control{{ $errors->has('captcha') ? ' is-invalid' : '' }}" name="captcha" required>
+
+                                <img class="thumbnail captcha mt-3 mb-2" src="{{ captcha_src('math') }}" onclick="this.src='/captcha/math?'+Math.random()" title="画像をクリックすると認証コードを再度取得できます" alt="Captcha">
+
+                                @if ($errors->has('captcha'))
+                                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('captcha') }}</strong>
+                              </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
