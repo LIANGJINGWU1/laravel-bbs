@@ -2,7 +2,7 @@
     <div class="container">
         <!-- Branding Image -->
         <a class="navbar-brand " href="{{ url('/') }}">
-            LaraBBS
+            {{ config('app.name', 'Pandaria') }}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,9 +15,9 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav navbar-right">
                 <!-- Authentication Links -->
-                <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">注册</a></li>
-                <li class="nav-item"><a href="{{ route('login') }}">跳转到登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{ __('login') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">{{ __('register') }}</a></li>
+
             </ul>
         </div>
     </div>
