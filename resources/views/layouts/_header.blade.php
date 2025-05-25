@@ -34,8 +34,8 @@
                             <span>{{ auth()->user()->name }}</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="">{{ __('Profile') }}</a>
-                            <a class="dropdown-item" href="">{{ __('Edit Profile') }}</a>
+                            <a class="dropdown-item" href="{{ route('users.show', auth()->user()) }}">{{ __('Profile') }}</a>
+                            <a class="dropdown-item" href="{{ route('users.edit', auth()->user()) }}">{{ __('Edit Profile') }}</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" id="logout" href="#">
                                 <form action="{{ route('logout') }}" method="POST">

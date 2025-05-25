@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -22,21 +23,24 @@ class UsersController extends Controller
         return view('users.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user):RedirectResponse
+    public function update(UserRequest $request, User $user):RedirectResponse
     {
-        $this->validate($request, [
-            'name' => 'required|max:50',
-            'introduction' => 'nullable|max:200',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+//        $this->validate($request, [
+//            'name' => 'required|max:50',
+//            'introduction' => 'nullable|max:200',
+//            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+//        ]);
+//
+//        $user->update($request->only('name', 'introduction'));
+//
+//        if ($request->hasFile('avatar')) {
+//            $user->updateAvatar($request->file('avatar'));
+//        }
+//
+//        return redirect()->route('users.show', ['user' => $user])->with('success', 'Your password has been updated!');
+   $user->update($request->all());
+   return redirect()->route('users.show', $user->id)->with('success', 'Profile updated successfully.');
 
-        $user->update($request->only('name', 'introduction'));
-
-        if ($request->hasFile('avatar')) {
-            $user->updateAvatar($request->file('avatar'));
-        }
-
-        return redirect()->route('users.show', ['user' => $user])->with('success', 'Your password has been updated!');
     }
 
 
