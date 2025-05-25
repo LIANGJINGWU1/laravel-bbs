@@ -22,11 +22,16 @@
                     </li>
                 @else
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+{{--                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"--}}
+{{--                           aria-haspopup="true" aria-expanded="false">--}}
+{{--                            <img src="{{ asset('images/avatar.png') }}"--}}
+{{--                                 class="img-responsive img-circle" width="30px" height="30px" alt="">--}}
+{{--                            {{ auth()->user()->name }}--}}
+{{--                        </a>--}}
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            <img src="{{ asset('images/avatar.png') }}"
-                                 class="img-responsive img-circle" width="30px" height="30px" alt="">
-                            {{ auth()->user()->name }}
+                            <img src="{{ asset('images/avatar.png') }}" width="30" height="30" class="rounded-circle" alt="avatar">
+                            <span>{{ auth()->user()->name }}</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="">{{ __('Profile') }}</a>
