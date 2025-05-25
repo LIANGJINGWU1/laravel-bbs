@@ -35,7 +35,7 @@ class VerificationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');
+        $this->middleware('signed')->only('verify');// 只保护 verify 方法，要求链接有签名参数
+        $this->middleware('throttle:6,1')->only('verify', 'resend');//throttle:6,1 表示：每分钟最多请求 6 次。
     }
 }
