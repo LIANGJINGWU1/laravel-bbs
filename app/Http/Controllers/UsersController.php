@@ -14,6 +14,11 @@ use Illuminate\Validation\ValidationException;
 
 class UsersController extends Controller
 {
+
+    public  function __construct()
+    {
+        $this->middleware('auth', ['except' => ['show']]);
+    }
     public function show(User $user): Factory|Application|View
     {
         return view('users.show', compact('user'));
@@ -21,27 +26,16 @@ class UsersController extends Controller
 
     public function edit(User $user): Factory|Application|View
     {
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
     public function update(UserRequest $request, ImageUploadHandler $uploader, User $user):RedirectResponse
     {
-//        $this->validate($request, [
-//            'name' => 'required|max:50',
-//            'introduction' => 'nullable|max:200',
-//            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-//        ]);
-//
-//        $user->update($request->only('name', 'introduction'));
-//
-//        if ($request->hasFile('avatar')) {
-//            $user->updateAvatar($request->file('avatar'));
-//        }
-//
-//        return redirect()->route('users.show', ['user' => $user])->with('success', 'Your password has been updated!');
-//   $user->update($request->all());
+        $this->authorize('update', $user);
         $data = $request->all();
-        if ($request->avatar){
+        if ($request->avatar)
+        {
             $result = $uploader->save($request->avatar, 'avatars', $user->id, 416);
             if ($result === false) {
                 return redirect()->back()->withErrors('Image upload failed. Please try again.');
