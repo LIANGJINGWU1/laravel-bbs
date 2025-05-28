@@ -16,6 +16,15 @@ class UserFactory extends Factory
      */
     protected static ?string $password;
 
+    public array $avatars = [
+        "/uploads/images/default-avatar/200.jpg",
+
+        "/uploads/images/default-avatar/300.jpg",
+        "/uploads/images/default-avatar/400.jpg",
+        "/uploads/images/default-avatar/500.jpg",
+        "/uploads/images/default-avatar/600.jpg",
+    ];
+
     /**
      * Define the model's default state.
      *
@@ -27,8 +36,10 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ??= Hash::make('123456'),
             'remember_token' => Str::random(10),
+            'introduction' => fake()->sentence(),
+            'avatar' => config('app.url') . fake()->randomElement($this->avatars),
         ];
     }
 
@@ -37,7 +48,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
