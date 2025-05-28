@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Listeners\EmailVerified;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Event::listen(
             EmailVerified::class,
         );
+        //使用bootstrap分页器
+        Paginator::useBootstrap();
     }
 }

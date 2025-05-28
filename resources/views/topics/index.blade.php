@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Request; @endphp
 @extends('layouts.app')
 
 @section('title', __('Topics'))
@@ -20,7 +21,7 @@
                     @include('topics._topic_list', ['topics' => $topics])
                     {{-- 分页 --}}
                     <div class="mt-5">
-                        {!! $topics->appends(\Illuminate\Support\Facades\Request::except('page'))->render() !!}
+                        {!! $topics->appends(Request::except('page'))->render() !!}
                     </div>
                 </div>
             </div>

@@ -41,3 +41,5 @@ Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 //用户资源路由
 Route::resource('users', UsersController::class)->only(['update', 'edit', 'show']);
+//top
+Route::resource('topics', TopicsController::class);

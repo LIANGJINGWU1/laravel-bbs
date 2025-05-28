@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Topic;
 use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 
 class TopicController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Factory|Application|View
     {
-        //
+        $topics = Topic::with(['user', 'category'])->orderBy('created_at', 'desc')->paginate($this->perPage);
+        return view('topics.index', compact('topics'));
     }
 
     /**
@@ -35,9 +39,9 @@ class TopicController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Topic $topic)
+    public function show(Topic $topic): View
     {
-        //
+        return view('topics.show', compact('topic'));
     }
 
     /**
