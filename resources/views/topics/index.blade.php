@@ -1,4 +1,10 @@
-@php use Illuminate\Support\Facades\Request; @endphp
+@php use Illuminate\Support\Facades\Request;
+
+$routeIsTopicsIndex = Request::routeIs('topics.index');
+$routeHasQueryOrder = Request::has('order');
+$currentOrder = Request::get('order', 'default'); // 默认值为 'default'
+
+@endphp
 @extends('layouts.app')
 
 @section('title', isset($category) ? $category->name: __('Topics'))
@@ -13,11 +19,21 @@
                 </div>
             @endif
             <div class="card ">
-
                 <div class="card-header bg-transparent">
                     <ul class="nav nav-pills">
-                        <li class="nav-item"><a class="nav-link active" href="#">最后回复</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">最新发布</a></li>
+                        <li class="nav-item">
+                            @if($routeHasQueryOrder)
+                                <a class="nav-link {{ $currentOrder == 'default' ? 'active' : ''}}"
+                                   href="{{ Request::url() }}?order=default">{{ __('Last Replied') }}</a>
+                            @else
+                                <a class="nav-link active"
+                                   href="{{ Request::url() }}?order=default">{{ __('Last Replied') }}</a>
+                            @endif
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ $routeHasQueryOrder && $currentOrder == 'recent' ? 'active' : '' }}"
+                               href="{{ Request::url() }}?order=recent">{{ __('New published') }}</a>
+                        </li>
                     </ul>
                 </div>
 
