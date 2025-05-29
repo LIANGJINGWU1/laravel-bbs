@@ -1,4 +1,18 @@
 {{--this is _header.blade  begin--}}
+@php
+    use App\Models\Category;
+
+    $categories = Category::all();
+
+    $currentCategoryParam = request()->route('$categories');
+    $currentCategoryId = null;
+    if ($currentCategoryParam) {
+        $currentCategoryId = $currentCategoryParam instanceof Category ? $currentCategoryParam->id : $currentCategoryParam;
+    }
+    @endphp
+
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-static-top">
     <div class="container">
         <!-- Branding Image -->
@@ -11,6 +25,17 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item "><a class="nav-link {{ request()->routeIs('topics.index') ? 'active' : '' }}" href="{{ route('topics.index') }}">话题</a></li>
+                @if($categories->count())
+                    @foreach($categories as $category)
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->routeIs('categories.show') && $currentCategoryId == $category->id) ? 'active' : '' }}"
+                               href="{{ route('categories.show', $category->id) }}">{{ __($category->name) }}</a>
+                        </li>
+                    @endforeach
+                @endif
             <ul class="navbar-nav">
             </ul>
             <!-- Right Side Of Navbar -->

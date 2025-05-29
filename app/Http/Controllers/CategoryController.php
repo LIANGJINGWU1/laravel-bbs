@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
@@ -34,9 +36,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Category $category):View
     {
-        //
+        $topics = Topic::where('category_id', $category->id)->paginate(21);
+        return view('topics.index', compact('topics','category'));
     }
 
     /**

@@ -18,7 +18,6 @@ class UserFactory extends Factory
 
     public array $avatars = [
         "/uploads/images/default-avatar/200.jpg",
-
         "/uploads/images/default-avatar/300.jpg",
         "/uploads/images/default-avatar/400.jpg",
         "/uploads/images/default-avatar/500.jpg",

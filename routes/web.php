@@ -6,8 +6,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\TopicController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'root'])->name('root');
@@ -40,6 +42,8 @@ Route::get('email/verify', [VerificationController::class, 'show'])->name('verif
 Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 //用户资源路由
-Route::resource('users', UsersController::class)->only(['update', 'edit', 'show']);
+Route::resource('users', UserController::class)->only(['update', 'edit', 'show']);
 //top
-Route::resource('topics', TopicsController::class);
+Route::resource('topics', TopicController::class);
+
+Route::resource('categories', CategoryController::class)->only(['show']);
