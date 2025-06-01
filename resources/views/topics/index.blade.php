@@ -1,8 +1,8 @@
 @php use Illuminate\Support\Facades\Request;
 
-$routeIsTopicsIndex = Request::routeIs('topics.index');
-$routeHasQueryOrder = Request::has('order');
-$currentOrder = Request::get('order', 'default'); // 默认值为 'default'
+$routeIsTopicsIndex = Request::routeIs('topics.index');//判断当前访问的是否是 topics.index 这个路由,比如只在话题列表页显示排序按钮：
+$routeHasQueryOrder = Request::has('order');//判断当前 URL 是否包含 order 这个查询参数
+$currentOrder = Request::get('order', 'default'); //获取 URL 中的 order 参数值，如果没有就返回 'default'。
 
 @endphp
 @extends('layouts.app')
