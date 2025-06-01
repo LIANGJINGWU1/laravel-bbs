@@ -9,10 +9,10 @@
                 </div>
 
                 <div class="flex-grow-1 ms-2">
-
+{{--_topic_list--}}
                     <div class="mt-0 mb-1">
                         <a href="{{ route('topics.show', [$topic->id]) }}" title="{{ $topic->title }}">
-                            {{ $topic->title }}
+                            {{ e($topic->title) }}
                         </a>
                         <a class="float-end" href="{{ route('topics.show', [$topic->id]) }}">
                             <span class="badge bg-secondary rounded-pill"> {{ $topic->reply_count }} </span>

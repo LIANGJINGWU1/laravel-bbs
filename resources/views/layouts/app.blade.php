@@ -16,6 +16,7 @@
 
     @vite(['resources/css/app.css'])
 
+    @yield('styles')
 </head>
 
 <body>
@@ -36,5 +37,7 @@
     @include('layouts._footer')
     @vite(['resources/js/app.js'])
 </div>
+
+@yield('scripts')
 </body>
 </html>

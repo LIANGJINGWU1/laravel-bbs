@@ -47,3 +47,4 @@ Route::resource('users', UserController::class)->only(['update', 'edit', 'show']
 Route::resource('topics', TopicController::class);
 
 Route::resource('categories', CategoryController::class)->only(['show']);
+
