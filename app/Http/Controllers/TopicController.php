@@ -38,7 +38,7 @@ class TopicController extends Controller
     public function create(Topic $topic):View
     {
         $categories = Category::all();
-        return view('topics.create', compact('topic', 'categories'));
+        return view('topics.create_and_edit', compact('topic', 'categories'));
     }
 
     /**
@@ -54,7 +54,7 @@ class TopicController extends Controller
         $topic->user()->associate($request->user());//把当前登录的用户（从 $request->user() 拿到）和 $topic 建立关系。
         $topic->save();
 
-        return redirect()->route('topic.show', $topic)->with('success', 'Topic created.');
+        return redirect()->route('topics.show', $topic)->with('success', 'Topic created.');
     }
 
     /**
