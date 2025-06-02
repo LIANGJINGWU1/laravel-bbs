@@ -86,6 +86,17 @@
             window.$(document).ready(function() {
                 const editor = new Simditor({
                     textarea: window.$('#editor'),
+                    upload: {
+                        url: '{{ route('topics.upload_image') }}',
+                        params: {
+                            _token: '{{ csrf_token() }}'// CSRF 防护用的 token，Laravel 必备
+                        },
+                        fileKey: 'upload_file',// 表单中的文件字段名，对应后端接收字段名
+                        connectionCount: 3,// 同时并发上传的图片数
+                        //// 上传过程中跳转页面的确认提示
+                        leaveConfirm: '{{ __('Uploading is in progress, are you sure to leave this page?') }}',
+                    },
+                    pasteImage: true,//支持粘贴
                 });
             });
         }

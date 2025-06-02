@@ -14,8 +14,8 @@
 
     <!-- Use vite include styles and scripts. -->
 
-    @vite(['resources/css/app.css'])
-
+{{--    @vite(['resources/css/app.css'])--}}
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @yield('styles')
 </head>
 
@@ -35,7 +35,7 @@
     </div>
 
     @include('layouts._footer')
-    @vite(['resources/js/app.js'])
+{{--    @vite(['resources/js/app.js'])--}}
 </div>
 
 @yield('scripts')
