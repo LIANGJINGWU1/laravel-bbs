@@ -12,6 +12,7 @@
 
     <title>@yield('title', config('app.name'))</title>
 
+    <meta name="description" content="@yield('description', 'Pandaria bbs')" />
     <!-- Use vite include styles and scripts. -->
 
 {{--    @vite(['resources/css/app.css'])--}}
