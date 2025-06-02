@@ -70,17 +70,24 @@ class TopicController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Topic $topic)
+    public function edit(Topic $topic): View
     {
-        //
+        $this->authorize('update', $topic);
+        $categories = Category::all();
+        return view('topics.create_and_edit', compact('topic', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTopicRequest $request, Topic $topic)
+    public function update(UpdateTopicRequest $request, Topic $topic):RedirectResponse
     {
-        //
+        $this->authorize('update', $topic);
+
+        $topic->fill($request->validated());
+        $topic->save();
+
+        return redirect()->route('topics.show', $topic)->with('success', 'Topic updated.');
     }
 
     /**

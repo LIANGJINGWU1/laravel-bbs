@@ -37,7 +37,7 @@ class TopicPolicy
      */
     public function update(User $user, Topic $topic): bool
     {
-        return false;
+        return $user->id === $topic->user_id;
     }
 
     /**

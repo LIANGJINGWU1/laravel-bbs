@@ -12,7 +12,7 @@ class UpdateTopicRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,9 @@ class UpdateTopicRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|min:3|max:30',
+            'body' => 'required|min:3',
+            'category_id' => 'required|exists:categories,id',
         ];
     }
 }
