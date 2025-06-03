@@ -13,7 +13,13 @@ class TopicObserver
      */
     public function saving(Topic $topic): void
     {
+        //过滤话题内容的特殊标签
         $topic->body = clean($topic->body, 'user_topic_body');
+        //生成摘要
         $topic->excerpt = make_excerpt($topic->body);
+        //如果没有slug，使用标题生成slug
+        if(!$topic->slug){
+            $topic->slug = rawurlencode($topic->title);
+        }
     }
 }
