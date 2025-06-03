@@ -93,9 +93,12 @@ class TopicController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Topic $topic)
+    public function destroy(Topic $topic): RedirectResponse
     {
-        //
+        $this->authorize('destroy', $topic);
+        $topic->delete();
+
+        return redirect()->route('topics.index')->with('success', 'Topic deleted.');
     }
 
     public function uploadImage(Request $request, ImageUploadHandler $uploader): JsonResponse

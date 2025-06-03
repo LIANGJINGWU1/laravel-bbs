@@ -37,15 +37,15 @@ class TopicPolicy
      */
     public function update(User $user, Topic $topic): bool
     {
-        return $user->id === $topic->user_id;
+        return $user->isAuthorOf($topic);
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Topic $topic): bool
+    public function destroy(User $user, Topic $topic): bool
     {
-        return false;
+        return $user->isAuthorOf($topic);
     }
 
     /**

@@ -37,15 +37,24 @@
                         <div class="topic-body mt-4 mb-4">
                             {!! $topic->body !!}
                         </div>
-                        <div class="operate">
+                        @can('update', $topic)
+                        <div class="operate d-flex gap-2 align-items-center">
                             <hr>
                             <a href="{{ route('topics.edit', $topic->id) }}" class="btn btn-outline-secondary btn-sm" role="button">
                                 <i class="far fa-edit"></i> {{ __('Edit') }}
                             </a>
-                            <a href="#" class="btn btn-outline-secondary btn-sm" role="button">
-                                <i class="far fa-trash-alt"></i> {{ __('Delete') }}
-                            </a>
+{{--                            <a href="{{ route('topics.destroy') }}" class="btn btn-outline-secondary btn-sm" role="button">--}}
+{{--                                <i class="far fa-trash-alt"></i> {{ __('Delete') }}--}}
+{{--                            </a>--}}
+                            <form action ="{{ route('topics.destroy',$topic->id) }}" method="POST" onsubmit="return confirm('确定删除吗？');">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-outline-secondary btn-sm">
+                                    <i class="far fa-trash-alt"></i> {{ __('Delete') }}
+                                </button>
+                            </form>
                         </div>
+                        @endcan
                     </div>
                 </div>
         </div>
