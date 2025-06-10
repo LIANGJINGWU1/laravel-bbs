@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Jobs\GenerateSlug;
 use App\Models\Topic;
 use Illuminate\Support\Str;
 
@@ -22,6 +23,14 @@ class TopicObserver
         //如果没有slug，使用标题生成slug
         if(!$topic->slug){
             $topic->slug = rawurlencode(Str::replace(' ', '-', $topic->title));
+        }
+    }
+
+    public function saved(Topic $topic): void
+    {
+        if(!$topic->slug)
+        {   //推送生成的slug的任务到队列
+            dispatch(new GenerateSlug($topic));
         }
     }
 }
