@@ -245,5 +245,9 @@
     "Edit Profile": "プロフィール編集",
     "Captcha": "検証コード",
     "Email": "メール",
-    "An error occurred.": "エラーが発生しました。"
+    "An error occurred.": "エラーが発生しました。",
+    "Topics": "トピック",
+    "Last Replied": "最終返信",
+    "New Published": "新着",
+    "New Post": "新規投稿"
 }

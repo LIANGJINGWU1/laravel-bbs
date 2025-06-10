@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -54,4 +55,10 @@ class Topic extends Model
         $params = array_merge([$this->id, $this->slug], $params);
         return route("topics.show", $params);
     }
+
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Reply::class);
+    }
+
 }

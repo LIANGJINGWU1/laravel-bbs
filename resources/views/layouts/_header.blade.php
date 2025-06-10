@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item "><a class="nav-link {{ request()->routeIs('topics.index') ? 'active' : '' }}" href="{{ route('topics.index') }}">话题</a></li>
+                <li class="nav-item "><a class="nav-link {{ request()->routeIs('topics.index') ? 'active' : '' }}" href="{{ route('topics.index') }}">{{ __('Topics') }}</a></li>
                 @if($categories->count())
                     @foreach($categories as $category)
                         <li class="nav-item">

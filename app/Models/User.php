@@ -93,4 +93,9 @@ class User extends Authenticatable  implements MustVerifyEmail
         return $this->id === $model->user_id;
     }
 
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Reply::class);
+    }
+
 }
