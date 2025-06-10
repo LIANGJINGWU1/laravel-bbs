@@ -29,7 +29,7 @@ class TopicFactory extends Factory
             'user_id' => User::all()->random()->id,//随机选一个已存在的用户 ID，表示这条数据由哪个用户发布
             'category_id' => Category::all()->random()->id,//随机选一个分类 ID，表示这条内容属于哪个分类。
             'excerpt' => Str::limit($sentence, 50),//摘要/简介，取标题的前 50 个字符（太长就截断）
-            'slug' => Str::slug($sentence),//URL 友好的版本，例如："Hello World!" 会变成 "hello-world"。
+            'slug' => Str::rawurlencode(Str::replace(' ', '-', $sentence)),//URL 友好的版本，例如："Hello World!" 会变成 "hello-world"。
             'created_at' => $createAt,
             'updated_at' => $updateAt,
         ];

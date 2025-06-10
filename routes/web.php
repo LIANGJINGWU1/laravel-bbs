@@ -44,7 +44,9 @@ Route::post('email/resend', [VerificationController::class, 'resend'])->name('ve
 //用户资源路由
 Route::resource('users', UserController::class)->only(['update', 'edit', 'show']);
 //top
-Route::resource('topics', TopicController::class);
+Route::resource('topics', TopicController::class)->only(['index', 'create', 'store', 'update', 'edit', 'destroy']);
+// 请求单个话题的时候加上 slug
+Route::get('topics/{topic}/{slug?}', [TopicController::class, 'show'])->name('topics.show');
 
 Route::resource('categories', CategoryController::class)->only(['show']);
 

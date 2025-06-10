@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Topic;
+use Illuminate\Support\Str;
+
 class TopicObserver
 {
     /**
@@ -19,7 +21,7 @@ class TopicObserver
         $topic->excerpt = make_excerpt($topic->body);
         //如果没有slug，使用标题生成slug
         if(!$topic->slug){
-            $topic->slug = rawurlencode($topic->title);
+            $topic->slug = rawurlencode(Str::replace(' ', '-', $topic->title));
         }
     }
 }

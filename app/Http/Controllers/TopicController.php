@@ -56,14 +56,17 @@ class TopicController extends Controller
         $topic->user()->associate($request->user());//把当前登录的用户（从 $request->user() 拿到）和 $topic 建立关系。
         $topic->save();
 
-        return redirect()->route('topics.show', $topic)->with('success', 'Topic created.');
+        return redirect()->to($topic->link())->with('success', 'Topic created.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Topic $topic): View
+    public function show(Topic $topic, $slug = null): View|RedirectResponse
     {
+        if(!empty($topic->slug) && $topic->slug != rawurlencode($slug)) {
+            return redirect($topic->link(), 301);
+        }
         return view('topics.show', compact('topic'));
     }
 
@@ -87,7 +90,7 @@ class TopicController extends Controller
         $topic->fill($request->validated());
         $topic->save();
 
-        return redirect()->route('topics.show', $topic)->with('success', 'Topic updated.');
+        return redirect()->to($topic->link())->with('success', 'Topic updated.');
     }
 
     /**
