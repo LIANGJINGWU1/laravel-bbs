@@ -2,15 +2,14 @@
 
     <ul class="list-group mt-4 border-0">
         @foreach ($topics as $topic)
-            <li class="list-group-item pl-2 pr-2 border-start-0 border-end-0 @if($loop->first) border-top-0 @endif">
+            <li class="list-group-item pl-2 pr-2 border-start-0 border-end-0 @if($loop->first) border-top-0 @endif
+            @if($loop->last) border-bottom-0 @endif">
                 <a class="text-decoration-none" href="{{ route('topics.show', $topic->id) }}">
                     {{ $topic->title }}
                 </a>
-                <span class="meta float-right text-secondary">
+                <span class="meta float-end text-secondary me-1">
                     {{ $topic->reply_count }} {{ __('Reply') }}
-                <span>
-                    &nbsp;⋅&nbsp;
-                </span>
+                <span> ⋅ </span>
                     {{ $topic->created_at->diffForHumans() }}
                 </span>
             </li>
@@ -22,6 +21,6 @@
     </div>
 @endif
 {{-- 分页 --}}
-<div class="mt-4 pt-1">
+<div class="mt-5 pt-1">
     {!! $topics->render() !!}
 </div>

@@ -17,10 +17,14 @@ class ReplyFactory extends Factory
      */
     public function definition(): array
     {
+        $createdAt = $this->faker->dateTimeBetween('-1 years', 'now');
+        $updatedAt = $this->faker->dateTimeBetween($createdAt, 'now');
         return [
-            'content' => $this->faker->realText(),
+            'content' => $this->faker->realText(150),
             'topic_id' => DB::table('topics')->inRandomOrder()->value('id'),
             'user_id' => DB::table('users')->inRandomOrder()->value('id'),
-        ];
+            'created_at' => $createdAt,
+            'updated_at' => $updatedAt,
+            ];
     }
 }

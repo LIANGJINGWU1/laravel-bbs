@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\TopicController;
@@ -54,3 +55,5 @@ Route::resource('categories', CategoryController::class)->only(['show']);
 Route::post('upload_image', [TopicController::class, 'uploadImage'])->name('topics.upload_image');
 //回复
 Route::resource('replies', ReplyController::class)->only(['store', 'destroy']);
+
+Route::resource('notifications', NotificationsController::class)->only(['index'])->middleware('auth');;
