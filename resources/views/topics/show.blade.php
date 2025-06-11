@@ -43,18 +43,53 @@
                             <a href="{{ route('topics.edit', $topic->id) }}" class="btn btn-outline-secondary btn-sm" role="button">
                                 <i class="far fa-edit"></i> {{ __('Edit') }}
                             </a>
-{{--                            <a href="{{ route('topics.destroy') }}" class="btn btn-outline-secondary btn-sm" role="button">--}}
-{{--                                <i class="far fa-trash-alt"></i> {{ __('Delete') }}--}}
-{{--                            </a>--}}
-                            <form action ="{{ route('topics.destroy',$topic->id) }}" method="POST" onsubmit="return confirm('确定删除吗？');">
+                            <form action="{{ route('topics.destroy', $topic->id) }}" method="post"
+                                  style="display: inline-block;"
+                                  onsubmit="return confirm('{{ __('Are you sure you want to delete this?') }}');">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-outline-secondary btn-sm">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">
                                     <i class="far fa-trash-alt"></i> {{ __('Delete') }}
                                 </button>
                             </form>
+{{--                            <form action ="{{ route('topics.destroy',$topic->id) }}" method="POST" onsubmit="return confirm('确定删除吗？');">--}}
+{{--                                @csrf--}}
+{{--                                @method('DELETE')--}}
+{{--                                <button class="btn btn-outline-secondary btn-sm">--}}
+{{--                                    <i class="far fa-trash-alt"></i> {{ __('Delete') }}--}}
+{{--                                </button>--}}
+{{--                            </form>--}}
                         </div>
                         @endcan
+{{--                        @if($topic->replies->isNotEmpty())--}}
+{{--                            @foreach($topic->replies as $reply)--}}
+{{--                                <div class="border rounded p-2 mb-2 d-flex gap-3">--}}
+{{--                                    --}}{{-- 用户头像 --}}
+{{--                                    --}}{{--asset() 帮你补全完整的路径前缀它默认指向 public/目录--}}
+{{--                                    <img src="{{ $reply->user->avatar ?? asset('images/default-avatar.png') }}"--}}
+{{--                                         alt="用户头像" width="40" height="40" class="rounded-circle">--}}
+
+{{--                                    <div>--}}
+{{--                                        --}}{{-- 用户名称 --}}
+{{--                                        <strong><a href="{{ route('users.show', $reply->user->id) }}" class="text-dark fw-bold text-decoration-none">--}}
+{{--                                            {{ $reply->user->name ?? '匿名用户' }}--}}
+{{--                                            </a>--}}
+{{--                                        </strong>--}}
+{{--                                        <p class="mb-1">{{ $reply->content }}</p>--}}
+{{--                                        <small class="text-muted">{{ $reply->created_at->diffForHumans() }}</small>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
+{{--                        @else--}}
+{{--                            <p>暂无回复</p>--}}
+{{--                        @endif--}}
+                    </div>
+                </div>
+                {{-- 用户回复列表 --}}
+                <div class="card topic-reply mt-4">
+                    <div class="card-body">
+                        @includeWhen(auth()->check(),'topics._reply_box', ['topic' => $topic])
+                        @include('topics._reply_list', ['replies' => $topic->replies()->with('user')->get()])
                     </div>
                 </div>
         </div>

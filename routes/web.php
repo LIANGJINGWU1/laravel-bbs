@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -51,3 +52,5 @@ Route::get('topics/{topic}/{slug?}', [TopicController::class, 'show'])->name('to
 Route::resource('categories', CategoryController::class)->only(['show']);
 
 Route::post('upload_image', [TopicController::class, 'uploadImage'])->name('topics.upload_image');
+//回复
+Route::resource('replies', ReplyController::class)->only(['store', 'destroy']);

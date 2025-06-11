@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Jobs\GenerateSlug;
 use App\Models\Topic;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class TopicObserver
@@ -33,4 +34,10 @@ class TopicObserver
             dispatch(new GenerateSlug($topic));
         }
     }
+
+    public function deleted(Topic $topic): void
+    {
+        DB::table('replies')->where('topic_id', $topic->id)->delete();
+    }
+
 }

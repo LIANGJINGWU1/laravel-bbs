@@ -67,6 +67,9 @@ class TopicController extends Controller
         if(!empty($topic->slug) && $topic->slug != rawurlencode($slug)) {
             return redirect($topic->link(), 301);
         }
+        // 加载 replies 和回复的作者 user
+        $topic->load(['replies.user']);
+
         return view('topics.show', compact('topic'));
     }
 

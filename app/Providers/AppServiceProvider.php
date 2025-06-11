@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Listeners\EmailVerified;
+use App\Models\Reply;
 use App\Models\Topic;
+use App\Observers\ReplyObserver;
 use App\Observers\TopicObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
         //注册观察者模型
         Topic::observe(TopicObserver::class);
+        Reply::observe(ReplyObserver::class);
 
         //使用bootstrap分页器
         Paginator::useBootstrap();

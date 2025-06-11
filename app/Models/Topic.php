@@ -43,7 +43,7 @@ class Topic extends Model
         return $query->orderBy('created_at', 'desc');
     }
 
-    public function scopeRecentReplied(Builder $query): Builder
+    public function scopeRecentReplied( $query): Builder
     {
         // 当话题有新回复时，我们将编写逻辑来更新话题模型的 reply_count 属性，
         // 此时会自动触发框架对数据模型 updated_at 时间戳的更新
@@ -55,6 +55,13 @@ class Topic extends Model
         $params = array_merge([$this->id, $this->slug], $params);
         return route("topics.show", $params);
     }
+
+    public function updateReplyCount():void
+    {
+        $this->reply_count = $this->reples->count();
+        $this->save();
+    }
+
 
     public function replies(): HasMany
     {
