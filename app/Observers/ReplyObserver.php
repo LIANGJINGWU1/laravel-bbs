@@ -13,7 +13,11 @@ class ReplyObserver
 //        $reply->topic->save();
         $reply->topic->updateReplyCount();
         //通知话题作者有新的回复
-        $reply->topic->user->notify(new TopicReplied($reply));
+//        $reply->topic->user->notify(new TopicReplied($reply));
+        // 避免 reply->topic->user 为 null，先判断一下
+        if ($reply->topic && $reply->topic->user && $reply->user_id !== $reply->topic->user_id) {
+            $reply->topic->user->notify(new TopicReplied($reply->id));  // ✅ 改为传 ID
+        }
     }
 
     public function creating(Reply $reply): void

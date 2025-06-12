@@ -18,9 +18,10 @@
 
                         <div class="list-unstyled notification-list">
                             @foreach ($notifications as $notification)
+                            {{--转为蛇形命名--}}
                                 @include('notifications.types._' . \Illuminate\Support\Str::snake(class_basename($notification->type)))
                             @endforeach
-
+                            {{--分页--}}
                             {!! $notifications->render() !!}
                         </div>
 

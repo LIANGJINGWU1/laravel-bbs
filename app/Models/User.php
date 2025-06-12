@@ -121,7 +121,7 @@ class User extends Authenticatable  implements MustVerifyEmail
     {
         $this->notification_count = 0;
         $this->save();
-        $this->notificaions->markAsRead();
+        $this->notifications->markAsRead();
     }
 
 }

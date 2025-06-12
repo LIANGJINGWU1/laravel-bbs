@@ -58,7 +58,7 @@ class Topic extends Model
 
     public function updateReplyCount():void
     {
-        $this->reply_count = $this->reples->count();
+        $this->reply_count = $this->replies->count();
         $this->save();
     }
 

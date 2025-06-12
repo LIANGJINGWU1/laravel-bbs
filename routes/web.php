@@ -12,6 +12,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'root'])->name('root');
@@ -57,3 +58,12 @@ Route::post('upload_image', [TopicController::class, 'uploadImage'])->name('topi
 Route::resource('replies', ReplyController::class)->only(['store', 'destroy']);
 
 Route::resource('notifications', NotificationsController::class)->only(['index'])->middleware('auth');;
+
+Route::get('/mail-test', function () {
+    Mail::raw('这是一封测试邮件', function ($message) {
+        $message->to('1174713142ljw@gmail.com')
+            ->subject('测试邮件');
+    });
+
+    return '邮件已发送';
+});
