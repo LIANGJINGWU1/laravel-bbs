@@ -11,7 +11,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-
+use Lab404\Impersonate\Models\Impersonate;
 class UserController extends Controller
 {
 
@@ -46,5 +46,44 @@ class UserController extends Controller
 
    return redirect()->route('users.show', $user->id)
        ->with('success', 'Profile updated successfully.');
+    }
+
+    /*
+     * 模拟登录
+     */
+    public function impersonateUser(int $id, Request $request): RedirectResponse
+    {
+        if(!auth()->user() || !app()->isLocal())
+        {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $user = User::find($id);
+
+        if($user)
+        {
+            auth()->user()->impersonate($user);
+            //获取重定向url，如果没有责默认重定向到首页
+            $redirectTo = $request->input('redirect_to', '/');
+
+            return redirect($redirectTo);
+        }
+
+        return redirect()->back()->with('error', 'User not found.');
+    }
+
+    /*
+     * 停止模拟登录
+     */
+    public function stopImpersonating(Request $request): RedirectResponse
+    {
+        if(!auth()->user() || !app()->isLocal())
+        {
+            abort(403, 'Unauthorized action.');
+        }
+
+        auth()->user()->leaveImpersonation();
+        $redirectTo = $request->input('redirect_to', '/');
+        return redirect($redirectTo);
     }
 }

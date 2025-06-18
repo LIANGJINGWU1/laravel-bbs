@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Auth\ConfirmPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -14,8 +16,9 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Middleware\RoleMiddleware;
 
-Route::get('/', [PagesController::class, 'root'])->name('root');
+Route::get('/', [TopicController::class, 'index'])->name('root');
 
 
 //Auth::routes();
@@ -66,4 +69,25 @@ Route::get('/mail-test', function () {
     });
 
     return '邮件已发送';
+});
+// 模拟登录相关路由
+Route::get('/impersonate/{id}', [UserController::class, 'impersonateUser'])->name('impersonate');
+Route::get('/stop-impersonating', [UserController::class, 'stopImpersonating'])->name('stopImpersonating');
+//后台管理路由
+Route::prefix('admin')->as('admin.')->middleware(['web', 'auth', RoleMiddleware::class . ':Founder|Maintainer'])->group(function () {
+    //后台首页
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    //用户管理
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class)
+        ->middleware(RoleMiddleware::class . ':Founder|Maintainer');
+    //话题管理
+    Route::resource('topics', \App\Http\Controllers\Admin\TopicController::class);
+    // 回复管理
+        Route::resource('replies', \App\Http\Controllers\Admin\ReplyController::class);
+        // 分类管理
+        Route::resource('categories',\App\Http\Controllers\Admin\CategoryController::class);
+        // 设置
+    Route::resource('settings', SettingController::class)->middleware([RoleMiddleware::class . ':Founder']);
+
+
 });

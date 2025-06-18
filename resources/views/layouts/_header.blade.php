@@ -68,17 +68,25 @@
                                  class="img-responsive img-circle" width="30px" height="30px" alt="">
                             {{ auth()->user()->name }}
                         </a>
+{{--                        下拉--}}
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
                                href="{{ route('users.show', auth()->user()) }}">
-                                <i class="far fa-user mr-2"></i>&nbsp;
+                                <i class="far fa-user mr-1"></i>&nbsp;
                                 {{ __('Profile') }}
                             </a>
                             <a class="dropdown-item"
                                href="{{ route('users.edit', auth()->user()) }}">
-                                <i class="far fa-edit mr-2"></i>&nbsp;
+                                <i class="far fa-edit mr-1"></i>&nbsp;
                                 {{ __('Edit Profile') }}
                             </a>
+                            @if(auth()->user()->hasRole('Founder') || auth()->user()->hasRole('Maintainer'))
+                                <a class="dropdown-item"
+                                   href="{{ route('admin.dashboard') }}">
+                                    <i class="fa-solid fa-gauge-high me-1"></i>
+                                    {{ __('Dashboard') }}
+                                </a>
+                            @endif
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" id="logout" href="#">
                                 <form action="{{ route('logout') }}" method="POST" onsubmit="return confirm('Are you sure you want to log out?');">

@@ -2,7 +2,7 @@
     <ul class="list-unstyled">
         @foreach ($topics as $topic)
             <li class="d-flex">
-                <div class="">
+                <div class="flex-shrink-0">
                     <a href="{{ route('users.show', [$topic->user_id]) }}">
                         <img class="media-object img-thumbnail mr-3" style="width: 52px; height: 52px;" src="{{ $topic->user->avatar }}" title="{{ $topic->user->name }}" alt="avatar">
                     </a>

@@ -8,13 +8,14 @@
     "require": {
         "php": "^8.2",
         "intervention/image": "^3.11",
+        "lab404/laravel-impersonate": "^1.7",
         "laravel-lang/common": "^6.7",
         "laravel/framework": "^12.0",
-        "laravel/horizon": "^5.32",
         "laravel/tinker": "^2.10.1",
         "mews/captcha": "^3.4",
         "mews/purifier": "^3.4",
-        "predis/predis": "^3.0"
+        "predis/predis": "^3.0",
+        "spatie/laravel-permission": "^6.19"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",

@@ -36,11 +36,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category, Request $request, Topic $topic):View
+    public function show(Category $category, Request $request, Topic $topic, User $user):View
     {
         $topics = $topic->withOrder($request->order)->where('category_id', $category->id)
         ->with(['user', 'category'])->paginate($this->perPage);
-        return view('topics.index', compact('topics','category'));
+        $active_users = $user->getActiveUsers();
+        return view('topics.index', compact('topics','category', 'active_users'));
     }
 
     /**

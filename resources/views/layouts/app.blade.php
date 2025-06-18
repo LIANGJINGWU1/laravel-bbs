@@ -38,7 +38,8 @@
     @include('layouts._footer')
 {{--    @vite(['resources/js/app.js'])--}}
 </div>
-
+@includeWhen((auth()->check() && app()->isLocal()), 'layouts._impersonate')
+{{--@includeWhen(true, 'layouts._impersonate')--}}
 @yield('scripts')
 </body>
 </html>
