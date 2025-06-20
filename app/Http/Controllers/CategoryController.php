@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Link;
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -36,12 +38,15 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category, Request $request, Topic $topic, User $user):View
+    public function show(Category $category, Request $request, Topic $topic, User $user, Link $link):View
     {
         $topics = $topic->withOrder($request->order)->where('category_id', $category->id)
         ->with(['user', 'category'])->paginate($this->perPage);
         $active_users = $user->getActiveUsers();
-        return view('topics.index', compact('topics','category', 'active_users'));
+
+        $links = $link->getAllCached();
+
+        return view('topics.index', compact('topics','category', 'active_users', 'links'));
     }
 
     /**

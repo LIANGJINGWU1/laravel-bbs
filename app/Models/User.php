@@ -127,4 +127,10 @@ class User extends Authenticatable  implements MustVerifyEmail
         $this->notifications->markAsRead();
     }
 
+    public function recordLastActiveAt(): void
+    {
+        $this->last_active_at = now();
+        $this->save();
+    }
+
 }

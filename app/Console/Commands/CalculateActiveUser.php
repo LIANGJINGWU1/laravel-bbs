@@ -28,7 +28,7 @@ class CalculateActiveUser extends Command
     public function handle(User $user):void
     {
         $this->info('开始计算');
-        $user>calculateAndCacheActiveUsers();
+        $user->calculateAndCacheActiveUsers();
         $this->info("success");
     }
 }
